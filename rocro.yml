@@ -9,21 +9,21 @@ inspecode:
       --ignore-literals:
       --ignore-usings:
     thresholds:
-      num-issues: 30
+      num-issues: 1
 
   errcheck:
     ignore:
     - '**/*_test.go'            #  51 issues
     thresholds:
-      num-issues: 36
+      num-issues: 44
 
   go-test:
     thresholds:
-      num-issues: 0
+      num-issues: 1
 
   go-vet:
     thresholds:
-      num-issues: 0
+      num-issues: 1
 
   gofmt:
     auto-fix: true
@@ -47,7 +47,7 @@ inspecode:
   gosimple:
     auto-fix: true
     thresholds:
-      num-issues: 2
+      num-issues: 0
 
   grep:
     thresholds:
