@@ -1,0 +1,74 @@
+inspecode:
+
+  cpd:
+    ignore:
+    - '**/*_test.go'            #  9 issues
+    options:
+      --ignore-annotations:
+      --ignore-identifiers:
+      --ignore-literals:
+      --ignore-usings:
+    thresholds:
+      num-issues: 30
+
+  errcheck:
+    ignore:
+    - '**/*_test.go'            #  51 issues
+    thresholds:
+      num-issues: 36
+
+  go-test:
+    thresholds:
+      num-issues: 0
+
+  go-vet:
+    thresholds:
+      num-issues: 0
+
+  gofmt:
+    auto-fix: true
+    thresholds:
+      num-issues: 0
+
+  goimports:
+    auto-fix: true
+    thresholds:
+      num-issues: 0
+
+  golint:
+    auto-fix: false   # it takes a very long time when true
+    thresholds:
+      num-issues: 711
+
+  gosec:
+    thresholds:
+      num-issues: 37
+
+  gosimple:
+    auto-fix: true
+    thresholds:
+      num-issues: 2
+
+  grep:
+    thresholds:
+      num-issues: 3
+
+  ineffassign:
+    thresholds:
+      num-issues: 24
+
+  interfacer:
+    thresholds:
+      num-issues: 10
+
+  misspell:
+    auto-fix: true
+    thresholds:
+      num-issues: 25
+
+  unused:
+    ignore:
+    - '**/*_test.go'            #  82 issues
+    - '**/internal/**/*.go'     # 135 issues
+    thresholds:
+      num-issues: 14
