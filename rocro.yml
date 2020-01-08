@@ -19,11 +19,11 @@ inspecode:
 
   go-test:
     thresholds:
-      num-issues: 1
+      num-issues: 0
 
   go-vet:
     thresholds:
-      num-issues: 1
+      num-issues: 0
 
   gofmt:
     auto-fix: true
@@ -55,11 +55,11 @@ inspecode:
 
   ineffassign:
     thresholds:
-      num-issues: 24
+      num-issues: 19
 
   interfacer:
     thresholds:
-      num-issues: 10
+      num-issues: 9
 
   misspell:
     auto-fix: true
