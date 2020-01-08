@@ -16,13 +16,17 @@
 
 package demo
 
-import "testing"
-import "google.golang.org/appengine/aetest"
-import . "github.com/smartystreets/goconvey/convey"
+import (
+	"testing"
+
+	. "github.com/smartystreets/goconvey/convey"
+	"google.golang.org/appengine/aetest"
+	"google.golang.org/appengine/datastore"
+)
 
 // START OMIT
 
-import "google.golang.org/appengine/datastore" // HL
+// HL
 
 func TestNative(t *testing.T) {
 	type Model struct{ A, B int } // HL
