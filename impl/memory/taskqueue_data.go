@@ -36,7 +36,7 @@ var (
 	currentNamespace = http.CanonicalHeaderKey("X-AppEngine-Current-Namespace")
 	defaultNamespace = http.CanonicalHeaderKey("X-AppEngine-Default-Namespace")
 
-	validTaskName = regexp.MustCompile("^[0-9a-zA-Z\\-\\_]{0,500}$")
+	validTaskName = regexp.MustCompile(`^[0-9a-zA-Z_-]{0,500}$`)
 
 	errBadRequest       = errors.New("BAD_REQUEST")
 	errInvalidTaskName  = errors.New("INVALID_TASK_NAME")

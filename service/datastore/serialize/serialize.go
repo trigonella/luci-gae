@@ -101,7 +101,7 @@ func ReadKey(buf ReadBuffer, context KeyContext, inKC ds.KeyContext) (ret *ds.Ke
 		return
 	}
 
-	if context == WithoutContext {
+	if !context {
 		// overrwrite with the supplied ones
 		kc = inKC
 	}
