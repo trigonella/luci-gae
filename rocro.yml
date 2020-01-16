@@ -64,7 +64,7 @@ inspecode:
   misspell:
     auto-fix: true
     thresholds:
-      num-issues: 25
+      num-issues: 24
 
   unused:
     ignore:
