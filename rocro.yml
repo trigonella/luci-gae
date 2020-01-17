@@ -70,5 +70,6 @@ inspecode:
     ignore:
     - '**/*_test.go'            #  82 issues
     - '**/internal/**/*.go'     # 135 issues
+    options: [ --single-occurrence, --all-likelihoods ]
     thresholds:
       num-issues: 14
