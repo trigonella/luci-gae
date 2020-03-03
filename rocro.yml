@@ -1,3 +1,5 @@
 inspecode:
 
   staticcheck: default
+  gosimple:
+    auto-fix: true
