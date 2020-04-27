@@ -26,11 +26,11 @@ inspecode:
 
   gofmt:
     auto-fix: true
-    thresholds: { num-issues: 0 }
+    thresholds: { num-issues: 1 }
 
   goimports:
     auto-fix: true
-    thresholds: { num-issues: 0 }
+    thresholds: { num-issues: 1 }
 
   golint:
     auto-fix: false   # it takes a very long time when true
@@ -46,7 +46,7 @@ inspecode:
     thresholds: { num-issues: 19 }
 
   jscpd:
-    thresholds: { num-issues: 31 }
+    thresholds: { num-issues: 32 }
 
   misspell:
     auto-fix: true
