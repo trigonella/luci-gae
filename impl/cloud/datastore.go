@@ -17,6 +17,7 @@ package cloud
 import (
 	"fmt"
 	"reflect"
+	"sort"
 	"strings"
 	"time"
 
@@ -77,27 +78,20 @@ func (bds *boundDatastore) RunInTransaction(fn func(context.Context) error, opts
 		return errors.New("nested transactions are not supported")
 	}
 
-	// The cloud datastore SDK does not expose any transaction options.
+	var txOpts []datastore.TransactionOption
 	if opts != nil {
-		switch {
-		case opts.XG:
-			return errors.New("cross-group transactions are not supported")
+		if opts.ReadOnly {
+			txOpts = append(txOpts, datastore.ReadOnly)
+		}
+		if opts.Attempts > 0 {
+			txOpts = append(txOpts, datastore.MaxAttempts(opts.Attempts))
 		}
 	}
 
-	attempts := 3
-	if opts != nil && opts.Attempts > 0 {
-		attempts = opts.Attempts
-	}
-	for i := 0; i < attempts; i++ {
-		_, err := bds.client.RunInTransaction(bds, func(tx *datastore.Transaction) error {
-			return fn(withDatastoreTransaction(bds, tx))
-		})
-		if err = normalizeError(err); err != ds.ErrConcurrentTransaction {
-			return err
-		}
-	}
-	return ds.ErrConcurrentTransaction
+	_, err := bds.client.RunInTransaction(bds, func(tx *datastore.Transaction) error {
+		return fn(withDatastoreTransaction(bds, tx))
+	}, txOpts...)
+	return normalizeError(err)
 }
 
 func (bds *boundDatastore) DecodeCursor(s string) (ds.Cursor, error) {
@@ -381,8 +375,15 @@ func (bds *boundDatastore) gaePropertyToNative(name string, pdata ds.PropertyDat
 		case ds.PTNull, ds.PTInt, ds.PTTime, ds.PTBool, ds.PTBytes, ds.PTString, ds.PTFloat:
 			return prop.Value(), nil
 
+		case ds.PTGeoPoint:
+			gp := prop.Value().(ds.GeoPoint)
+			return datastore.GeoPoint{Lat: gp.Lat, Lng: gp.Lng}, nil
+
 		case ds.PTKey:
 			return bds.gaeKeysToNative(prop.Value().(*ds.Key))[0], nil
+
+		case ds.PTPropertyMap:
+			return bds.gaeEntityToNative(prop.Value().(ds.PropertyMap)), nil
 
 		default:
 			return nil, fmt.Errorf("unsupported property type: %v", pt)
@@ -439,8 +440,14 @@ func (bds *boundDatastore) nativePropertyToGAE(nativeProp datastore.Property) (
 			// Cloud datastore library returns local time.
 			nv = nvt.UTC()
 
+		case datastore.GeoPoint:
+			nv = ds.GeoPoint{Lat: nvt.Lat, Lng: nvt.Lng}
+
 		case *datastore.Key:
 			nv = bds.nativeKeysToGAE(nvt)[0]
+
+		case *datastore.Entity:
+			nv = bds.nativeEntityToGAE(nvt)
 
 		default:
 			return fmt.Errorf("unsupported datastore.Value type for %q: %T", name, nvt)
@@ -525,6 +532,60 @@ func (bds *boundDatastore) nativeKeysToGAE(nativeKeys ...*datastore.Key) []*ds.K
 		keys[i] = kc.NewKeyToks(toks)
 	}
 	return keys
+}
+
+// nativeEntityToGAE returns a ds.PropertyMap representation of the given
+// *datastore.Entity. Since properties can themselves be *datastore.Entities,
+// the caller is responsible for ensuring there are no reference cycles.
+func (bds *boundDatastore) nativeEntityToGAE(ent *datastore.Entity) ds.PropertyMap {
+	if ent == nil {
+		return nil
+	}
+	pm := ds.PropertyMap{}
+	if ent.Key != nil {
+		pm["__key__"] = ds.MkProperty(bds.nativeKeysToGAE(ent.Key)[0])
+	}
+	// Property ordering is lost since it's encoded to a map, but *datastore.Entity is
+	// sourced from https://godoc.org/google.golang.org/genproto/googleapis/datastore/v1#Entity
+	// which originally held properties in a map to begin with, meaning order is irrelevant.
+	for _, p := range ent.Properties {
+		_, prop, err := bds.nativePropertyToGAE(p)
+		if err != nil {
+			// Shouldn't happen. It means the *datastore.Entity contained an unsupported type.
+			panic(err)
+		}
+		pm[p.Name] = prop
+	}
+	return pm
+}
+
+// gaeEntityToNative returns a *datastore.Entity representation of the given
+// PropertyMap (assumed to have been produced by nativeEntityToGAE).
+func (bds *boundDatastore) gaeEntityToNative(pm ds.PropertyMap) *datastore.Entity {
+	ent := &datastore.Entity{
+		Properties: []datastore.Property{},
+	}
+	// Ensure stable order.
+	keys := make([]string, 0, len(pm))
+	for name := range pm {
+		keys = append(keys, name)
+	}
+	sort.Strings(keys)
+	for _, name := range keys {
+		// nativeEntityToGAE stores *datastore.Entity.Key as __key__.
+		if name == "__key__" {
+			prop := pm[name].(ds.Property)
+			ent.Key = bds.gaeKeysToNative(prop.Value().(*ds.Key))[0]
+			continue
+		}
+		p, err := bds.gaePropertyToNative(name, pm[name])
+		if err != nil {
+			// Shouldn't happen. It means nativeEntityToGAE encoded an unsupported type.
+			panic(err)
+		}
+		ent.Properties = append(ent.Properties, p)
+	}
+	return ent
 }
 
 // nativePropertyLoadSaver is a ds.PropertyMap which implements

@@ -295,7 +295,21 @@ func (d *rdsImpl) Count(fq *ds.FinalizedQuery) (int64, error) {
 }
 
 func (d *rdsImpl) RunInTransaction(f func(c context.Context) error, opts *ds.TransactionOptions) error {
-	ropts := (*datastore.TransactionOptions)(opts)
+	ropts := &datastore.TransactionOptions{
+		// Cloud Datastore no longer exposes the ability to explicitly allow
+		// cross-group transactions. Since appengine datastore is effectively
+		// deprecated in favor of Cloud Datastore (e.g. the only way to access
+		// Datastore in "current" GAE versions), we just set all transactions as
+		// XG=true now. We believe that this should have no observable difference
+		// for code which only touches a single entity group. The only difference
+		// will be that transactions which would error (due to touching multiple
+		// groups) will now no longer error out.
+		XG: true,
+	}
+	if opts != nil {
+		ropts.Attempts = opts.Attempts
+		ropts.ReadOnly = opts.ReadOnly
+	}
 	return datastore.RunInTransaction(d.aeCtx, func(c context.Context) error {
 		// Derive a prodState with this transaction Context.
 		ps := d.ps
