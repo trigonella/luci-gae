@@ -53,7 +53,7 @@ inspecode:
     thresholds: { num-issues: 25 }
 
   staticcheck:
-    thresholds: { num-issues: 60 }
+    thresholds: { num-issues: 77 }
 
   unused:
     ignore:
