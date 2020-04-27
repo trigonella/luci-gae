@@ -1,5 +1,8 @@
 inspecode:
 
+  experimental:
+    runtime: { go: 1.12 }
+
   cpd:
     ignore:
     - '**/*_test.go'            #  9 issues
@@ -46,7 +49,7 @@ inspecode:
     thresholds: { num-issues: 19 }
 
   jscpd:
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 31 }
 
   misspell:
     auto-fix: true
@@ -54,7 +57,7 @@ inspecode:
 
   staticcheck:
     #options: { -go: 1.13 }
-    thresholds: { num-issues: 999 }
+    thresholds: { num-issues: 60 }
 
   unused:
     ignore:
