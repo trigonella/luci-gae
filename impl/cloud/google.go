@@ -198,7 +198,7 @@ func (gsp *GoogleServiceProvider) SignBytes(c context.Context, bytes []byte) (ke
 // errTrackingReader wraps an io.Reader and retains an error, if the Reader
 // returns an error.
 //
-// We use this becuase we chain an HTTP response's body Reader with a JSON
+// We use this because we chain an HTTP response's body Reader with a JSON
 // unmarshaller, and want to be able to distinguish between an I/O error and a
 // JSON unmarshalling error.
 type errTrackingReader struct {

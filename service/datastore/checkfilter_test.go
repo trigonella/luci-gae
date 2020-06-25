@@ -37,7 +37,7 @@ func TestCheckFilter(t *testing.T) {
 		// stopped at the checkFilter will nil-pointer panic. We use this panic
 		// behavior to indicate that the checkfilter has allowed a call to pass
 		// through to the implementation in the tests below. In a real application
-		// the panics observed in the tests below would actually be sucessful calls
+		// the panics observed in the tests below would actually be successful calls
 		// to the implementation.
 		c := SetRaw(info.Set(context.Background(), fakeInfo{}), fakeRDS{})
 		rds := Raw(c) // has checkFilter

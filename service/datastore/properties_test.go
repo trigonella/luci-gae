@@ -94,7 +94,7 @@ func TestProperties(t *testing.T) {
 					So(pv.IndexSetting(), ShouldEqual, ShouldIndex)
 					So(pv.Type().String(), ShouldEqual, "PTString")
 				})
-				Convey("blobstore.Key is distinquished", func() {
+				Convey("blobstore.Key is distinguished", func() {
 					pv := MkProperty(blobstore.Key("sup"))
 					So(pv.Value(), ShouldEqual, blobstore.Key("sup"))
 					So(pv.IndexSetting(), ShouldEqual, ShouldIndex)

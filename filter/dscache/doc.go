@@ -89,7 +89,7 @@
 //
 // NOTE: If this memcache Set fails, it's a HARD ERROR. See DANGER ZONE.
 //
-// If the transaction is sucessfully committed (err == nil), then all the locks
+// If the transaction is successfully committed (err == nil), then all the locks
 // will be deleted.
 //
 // The assumption here is that get operations apply all outstanding
@@ -110,9 +110,9 @@
 // datastore.PropertyLoadSaver.GetMeta) to control the behavior of its cache.
 //
 //   - `gae:"$dscache.enable,<true|false>"` - whether or not this entity should
-//      be cached at all. If ommitted, dscache defaults to true.
+//      be cached at all. If omitted, dscache defaults to true.
 //   - `gae:"$dscache.expiration,#seconds"` - the number of seconds of
-//     persistance to use when this item is cached. 0 is infinite. If omitted,
+//     persistence to use when this item is cached. 0 is infinite. If omitted,
 //     defaults to 0.
 //
 // In addition, the application may set a function shardsForKey(key) which

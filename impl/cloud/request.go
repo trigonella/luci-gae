@@ -154,7 +154,7 @@ func (*ScopedRequestHandler) finalize(c context.Context, rs *requestState, crw *
 		}
 
 		// The payload is copied from observed "nginx" payload logging in Flex
-		// enviornment.
+		// environment.
 		payload := struct {
 			LatencySeconds string `json:"latencySeconds,omitempty"`
 			Trace          string `json:"trace,omitempty"`
