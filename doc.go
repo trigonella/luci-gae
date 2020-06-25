@@ -49,7 +49,7 @@
 //
 // Service Definitions
 //
-// A service defintion lives under the `service` subfolder, and defines the
+// A service definition lives under the `service` subfolder, and defines the
 // user-facing interface for a service. Each service has a few common types and
 // functions. Common types are:
 //
@@ -84,7 +84,7 @@
 //                            avoid some of the overhead of the user-friendly
 //                            Interface, which can do sometimes-unnecessary amounts
 //                            of reflection or allocation. The RawInterface and
-//                            Interface for a service are fully interchangable and
+//                            Interface for a service are fully interchangeable and
 //                            usage of them can be freely mixed in an application.
 //
 //    service.AddRawFilters - adds one or more RawFilters to the context.

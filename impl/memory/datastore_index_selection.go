@@ -76,7 +76,7 @@ type reducedQuery struct {
 
 type indexDefinitionSortable struct {
 	// eqFilts is the list of ACTUAL prefix columns. Note that it may contain
-	// redundant columns! (e.g. (tag, tag) is a perfectly valid prefix, becuase
+	// redundant columns! (e.g. (tag, tag) is a perfectly valid prefix, because
 	// (tag=1, tag=2) is a perfectly valid query).
 	eqFilts []ds.IndexColumn
 	coll    memCollection

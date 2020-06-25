@@ -14,7 +14,7 @@
 
 package user
 
-// Testable is the interface that test implimentations will provide.
+// Testable is the interface that test implementations will provide.
 type Testable interface {
 	// SetUser sets the user to a pre-populated User object.
 	SetUser(*User)

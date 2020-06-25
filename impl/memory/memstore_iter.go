@@ -29,7 +29,7 @@ type iterDefinition struct {
 
 	// prefixLen is the number of prefix bytes that the caller cares about. It
 	// may be <= len(prefix). When doing a multiIterator, this number will be used
-	// to determine the amount of suffix to transfer accross iterators. This is
+	// to determine the amount of suffix to transfer across iterators. This is
 	// used specifically when using builtin indexes to service ancestor queries.
 	// The builtin index represents the ancestor key with prefix bytes, but in a
 	// multiIterator context, it wants the entire key to be included in the
