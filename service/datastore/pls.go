@@ -61,7 +61,7 @@ import (
 //
 //      if noindex is specified, then this field will not be indexed in the
 //      datastore, even if it was an otherwise indexable type. If fieldName is
-//      blank, and noindex is specifed, then fieldName will default to the
+//      blank, and noindex is specified, then fieldName will default to the
 //      field's actual name. Note that by default, all fields (with indexable
 //      types) are indexed.
 //
@@ -155,7 +155,7 @@ import (
 //   }
 //
 // A pointer-to-struct may also implement MetaGetterSetter to provide more
-// sophistocated metadata values. Explicitly defined fields (as shown above)
+// sophisticated metadata values. Explicitly defined fields (as shown above)
 // always take precedence over fields manipulated by the MetaGetterSetter
 // methods. So if your GetMeta handles "kind", but you explicitly have a
 // $kind field, the $kind field will take precedence and your GetMeta

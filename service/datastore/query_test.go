@@ -31,7 +31,7 @@ const (
 )
 
 func TestDatastoreQueries(t *testing.T) {
-	Convey("Datastore Query suport", t, func() {
+	Convey("Datastore Query support", t, func() {
 		Convey("can create good queries", func() {
 			q := NewQuery("Foo").Gt("farnsworth", 20).KeysOnly(true).Limit(10).Offset(39)
 

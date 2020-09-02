@@ -74,7 +74,7 @@ func (s *sizeTracker) set(key string, val int64) {
 	}
 }
 
-// get returns the currently tracked size for key, and wheter or not the key
+// get returns the currently tracked size for key, and whether or not the key
 // has any tracked value.
 func (s *sizeTracker) get(key string) (int64, bool) {
 	size, has := s.keyToSize[key]

@@ -168,7 +168,7 @@ const (
 
 	// PTPropertyMap represents a PropertyMap object.
 	//
-	// This is typicaly used to represent GAE *datastore.Entity objects.
+	// This is typically used to represent GAE *datastore.Entity objects.
 	PTPropertyMap
 
 	// PTUnknown is a placeholder value which should never show up in reality.
@@ -277,7 +277,7 @@ func RoundTime(t time.Time) time.Time {
 	return t.Round(time.Microsecond)
 }
 
-// TimeToInt converts a time value to a datastore-appropraite integer value.
+// TimeToInt converts a time value to a datastore-appropriate integer value.
 //
 // This method truncates the time to microseconds and drops the timezone,
 // because that's the (undocumented) way that the appengine SDK does it.
@@ -822,7 +822,7 @@ type PropertyLoadSaver interface {
 // getting and saving metadata.
 //
 // A *struct may implement this interface to provide metadata which is
-// supplimental to the variety described by GetPLS. For example, this could be
+// supplemental to the variety described by GetPLS. For example, this could be
 // used to implement a parsed-out $kind or $id.
 type MetaGetterSetter interface {
 	MetaGetter

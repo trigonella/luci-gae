@@ -67,7 +67,7 @@ func (ci *infoState) derive(mutate func(*infoState)) *infoState {
 }
 
 // infoService is an implementation of the "service/info" Interface that runs
-// in a cloud enviornment.
+// in a cloud environment.
 type infoService struct {
 	context.Context
 	*infoState

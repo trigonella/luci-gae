@@ -813,7 +813,7 @@ func TestQuerySupport(t *testing.T) {
 				}, nil), ShouldBeNil)
 			})
 
-			Convey("query accross nested transactions", func() {
+			Convey("query across nested transactions", func() {
 				_, _, c := mkds(projectData)
 				q = q.Eq("Value", 2, 3)
 

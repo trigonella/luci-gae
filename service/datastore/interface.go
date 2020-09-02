@@ -223,7 +223,7 @@ func KeyForObj(c context.Context, src interface{}) *Key {
 // By default, the metadata will be extracted from the struct and its tagged
 // properties. However, if the struct implements MetaGetterSetter it is
 // wholly responsible for exporting the required fields. A struct that
-// implements GetMeta to make some minor tweaks can evoke the defualt behavior
+// implements GetMeta to make some minor tweaks can evoke the default behavior
 // by using GetPLS(s).GetMeta.
 //
 // If a required metadata item is missing or of the wrong type, then this will

@@ -149,7 +149,7 @@ func GetBinaryBounds(fq *ds.FinalizedQuery) (lower, upper []byte) {
 		// Invert so that the desired numbers are represented correctly in the index.
 		// Swap so that our iterators still go from >= start to < end.
 		// Increment so that >= and < get correctly bounded (since the iterator is
-		// still using natrual bytes ordering)
+		// still using natural bytes ordering)
 		if fq.Orders()[0].Descending {
 			hi, lo := []byte(nil), []byte(nil)
 			if len(lower) > 0 {

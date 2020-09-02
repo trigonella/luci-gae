@@ -57,7 +57,7 @@ type dataStoreData struct {
 	// For testing, see SetTransactionRetryCount.
 	txnFakeRetry int
 
-	// true means that queries with insufficent indexes will pause to add them
+	// true means that queries with insufficient indexes will pause to add them
 	// and then continue instead of failing.
 	autoIndex bool
 

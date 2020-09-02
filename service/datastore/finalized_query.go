@@ -67,7 +67,7 @@ func (q *FinalizedQuery) Kind() string {
 
 // EventuallyConsistent returns true iff this query will be eventually
 // consistent. This is true when the query is a non-ancestor query, or when it's
-// an ancestory query with the 'EventualConsistency(true)' option set.
+// an ancestry query with the 'EventualConsistency(true)' option set.
 func (q *FinalizedQuery) EventuallyConsistent() bool {
 	return q.eventuallyConsistent
 }
